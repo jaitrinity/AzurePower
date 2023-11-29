@@ -1,0 +1,44 @@
+<div class="row">
+    <div class="col-md-3">
+        <label class="text-bold ">Date <span>*</span></label>
+        <input type="date" class="form-control input-sm tom-border-radius" [(ngModel)]="filterDate" (change)="viewMap()">
+    </div>
+    <div class="col-md-3">
+        <label class="text-bold">Employee <span>*</span></label>
+        <select class="form-control input-sm tom-border-radius" [(ngModel)]="filterEmpId" (change)="viewMap()">
+            <option value="">Select</option>
+            <option value="{{emp.paramCode}}" *ngFor="let emp of employeeList" >{{emp.paramDesc}}</option>
+        </select>
+    </div>
+</div>
+<div class="row" *ngIf="distanceTravel !=''">
+    <div class="col-md-12">
+        <label class="text-bold">Total travel on {{filterDate}} is {{distanceTravel}} </label>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+            <!-- <agm-direction *ngFor="let dir of dirs" [origin]="dir.origin" [destination]="dir.destination" [renderOptions]="dir.renderOptions"> -->
+            <!-- </agm-direction> -->
+            <!-- <agm-marker *ngFor="let map of mapViewList" 
+                        [iconUrl]="{
+                            url : map.iconUrl,
+                            scaledSize : {
+                                width: 40,
+                                height: 50
+                            }
+                        }"
+                        [latitude]="map.origin.lat"
+                        [longitude]="map.origin.lng"
+                        [animation]="'DROP'">
+            </agm-marker> -->
+            <agm-direction *ngFor="let map of mapViewList" 
+                [origin]="map.origin" 
+                [destination]="map.destination" 
+                [renderOptions]="map.renderOptions" 
+                [markerOptions]="map.markerOptions">
+            </agm-direction>
+        </agm-map>
+    </div>
+</div>
